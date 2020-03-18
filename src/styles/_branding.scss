@@ -1,0 +1,74 @@
+/*
+  Contains styles and colour schemes according to feed guideline
+*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Signika+Negative:400,700&display=swap');
+
+/*
+  Creates classes for text colour with '.text-' as prefix to the given keys
+  e.g. input: ("primary-blue", red) 
+  output: .text-primary-blue {
+    color: red;
+  }
+*/
+@mixin syntax-colors($keys, $colors) {
+  @debug $keys;
+  @for $i from 0 to length($keys) {
+    .text-#{nth($keys, $i + 1)} {
+      color: #{nth($colors, $i + 1)};
+    }
+  }
+}
+/*
+  Mixin for regular or insignia styling.
+  Styles added in below mixin will be reflected in .regular and .insignia classes  
+*/
+@mixin  branding(
+  $bodyBackground, $fontFamily,
+  $primaryBlue, $primaryRed, $primaryDark, $secondaryBlue, $secondaryRed, $secondaryDark,
+  $feed-btn, $feed-btn-outline,
+  $feedHeading: #070d44, $feedSubHeading: #a27a2c, $feedParagraph: $primaryBlue) {
+    &.main-layout {
+      // background: $bodyBackground;
+      -ms-overflow-style: none;
+    }
+
+    &.main-layout{
+      font-family: $fontFamily;
+      color: $primaryDark;
+    }
+
+    @include syntax-colors(
+      "primary-blue" "primary-red" "primary-dark" "secondary-blue" 
+      "secondary-red" "secondary-dark" "heading" "sub-heading" "paragraph",
+      $primaryBlue $primaryRed $primaryDark $secondaryBlue 
+      $secondaryRed $secondaryDark $feedHeading $feedSubHeading $feedParagraph
+    );
+
+    %btnShadow {
+      box-shadow: 0 2px 5px 0 rgba(100, 76, 76, 0.17);
+
+      &:hover {
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+      }
+    }
+    
+    .btn-feed {
+      color: #fff;
+      background-color: $feed-btn;
+      border-color: $feed-btn;
+      @extend %btnShadow;
+    }
+  
+    .btn-outline-feed {
+      color: $primaryBlue;
+      border-color: $primaryBlue;
+      @extend %btnShadow;
+    }
+}
+
+.insignia {
+  @include branding(#070d44,
+  ('Signika Negative', sans-serif),
+  #070d44, #b7892f, #666666, #e2c68e, #a27a2c, #b9b8b8, 
+  #b7892f, #b7892f);
+}

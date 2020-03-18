@@ -1,0 +1,23 @@
+.main-layout {
+  margin: 0 auto;
+  padding: 0 15rem;
+
+  main {
+    max-width: 600px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+@import './branding';
+@import './utilities';
+
+.timeline {
+  .feed {
+    border: 1px solid #ccc;
+    padding: 8px;
+    box-shadow: 0px 1px 2px grey;
+  }
+}
